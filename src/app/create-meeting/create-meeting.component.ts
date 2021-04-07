@@ -13,12 +13,13 @@ import { MatSnackBar } from '@angular/material';
 export class CreateMeetingComponent implements OnInit {
   createMeetingForm: FormGroup;
   meetingDetails: any;
-  isLoad = false
+  isLoad = false;
   title: any;
-  isEnable = false
+  isEnable = false;
+  btnDisabled = true;
 
   url = 'http://localhost:3000/createmeeting';
-  constructor(public httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog,private _snackBar: MatSnackBar) {
+  constructor(public httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
   }
   ngOnInit() {
@@ -31,14 +32,15 @@ export class CreateMeetingComponent implements OnInit {
       Validators.required,
       Validators.email
     ]),
-    title: new FormControl('',Validators.required),
-    datepicker: new FormControl('',Validators.required)
+    title: new FormControl('', Validators.required),
+    datepicker: new FormControl('', Validators.required)
     });
     this.isEnable = true;
   }
   // meetingCreateForm() {
   //   // userFirstName: new FormControl(''),
   //   // tslint:disable-next-line:max-line-length
+  // tslint:disable-next-line:max-line-length
   //   const emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   //   this.createMeetingForm = this.formBuilder.group({
   //     email: [null, [Validators.required, Validators.pattern(emailregex)]],
@@ -48,40 +50,42 @@ export class CreateMeetingComponent implements OnInit {
   //   });
   // }
 
-    
+
   //  });
   // tslint:disable-next-line:typedef
   createMeeting(body: any) {
       this.isLoad = true;
-    console.log('data', body);
+      console.log('data', body);
     // let type: string = "application/x-www-form-urlencoded; charset=UTF-8";
-    const options = {responseType: 'text' as 'json'};
-    const bodyString = JSON.parse(JSON.stringify(body || null ));
+      const options = {responseType: 'text' as 'json'};
+      const bodyString = JSON.parse(JSON.stringify(body || null ));
     // tslint:disable-next-line:max-line-length
     // const headers = { Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IjljY0p1QUh5U3RXY18yMTI3OEhpRGciLCJleHAiOjE2MTcyNzc5NjgsImlhdCI6MTYxNzI3MjU2OX0.DO6Zskh-_WWF3WvefmjdcrMVDIDKk-QJUyJi-tdW9f4', responseType: 'text'};
-    this.httpClient.post('http://localhost:3000/createmeeting', bodyString, options).subscribe((data: any) => {
+      this.httpClient.post('http://localhost:3000/createmeeting', bodyString, options).subscribe((data: any) => {
       // tslint:disable-next-line:one-line
       if (data != null){
          this.isLoad = false;
-        console.log(JSON.parse(data));
-        this._snackBar.open('Meeting Created Successfully', '', {
+         console.log(JSON.parse(data));
+         this._snackBar.open('Meeting Created Successfully', '', {
           duration: 1000,
         });
       }
       this.meetingDetails = JSON.parse(data);
       console.log(this.meetingDetails.id);
-      this.title = JSON.stringify(this.createMeetingForm.value.title)
-      console.log(this.title)
+      this.title = JSON.stringify(this.createMeetingForm.value.title);
+      console.log(this.title);
+      this.btnDisabled = false;
     });
+      // this.openDialog();
   }
 
 
-  isDisabled() {
-    if (this.createMeetingForm.dirty || this.isEnable) {
-      return false
-    }
-    return true
-  }
+  // isDisabled() {
+  //   if (this.createMeetingForm.dirty || this.isEnable) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
 
   openDialog(): void {
@@ -89,7 +93,7 @@ export class CreateMeetingComponent implements OnInit {
       width: '650px',
       data: this.meetingDetails,
       // zoomTitle: this.title
-      
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
