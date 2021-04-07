@@ -26,20 +26,29 @@ export class JoinMeetingComponent implements OnInit {
   userEmail = ''
   passWord = ''
   formGroup: FormGroup;
+  joinMeetingForm: FormGroup;
 
   constructor(public httpClient: HttpClient, @Inject(DOCUMENT) document,private formBuilder: FormBuilder) {
 
   }
 
   ngOnInit() {
-    // this.meetingForm();
+    this.joinMeetingCreateForm(); 
+   }
+
+  joinMeetingCreateForm() {
+    this.joinMeetingForm = this.formBuilder.group({
+      // tslint:disable-next-line:object-literal-key-quotes
+      'meetingId': [null, Validators.required],
+      // tslint:disable-next-line:object-literal-key-quotes
+      'userName': [null, [Validators.required]]
+    });
   }
-  // meetingForm(){
-  //   this.formGroup = this.formBuilder.group({
-  //     'userName': [null, Validators.required],
-  //     'meetingNumber': [null, Validators.required],
-  //   });
-  // }
+  joinMeeting(data: any) {  
+    this.meetingNumber = data.meetingId;
+    this.userName = data.userName;
+    this.getSignature();
+  }
  
   getSignature() {
     this.httpClient.post(this.signatureEndpoint, {
