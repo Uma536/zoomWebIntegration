@@ -8,14 +8,14 @@
         <form [formGroup]="createMeetingForm" class="form" (ngSubmit)="createMeeting(createMeetingForm.value)">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="Email"  formControlName="email" required>
+                <input matInput placeholder="Email"  formControlName="email">
                  <!-- <mat-error *ngIf="!createMeetingForm.controls['email'].valid && createMeetingForm.controls['email'].touched">
         Email Id is required
       </mat-error> -->
               </mat-form-field>
               <mat-form-field appearance="outline" class="example-full-width">
                 <mat-label>Topic</mat-label>
-                <input matInput placeholder="Title" formControlName="title" required>
+                <input matInput placeholder="Title" formControlName="title">
               </mat-form-field>
               <mat-form-field appearance="outline" class="example-full-width">
                 <input matInput [ngxMatDatetimePicker]="picker" formControlName="datepicker" placeholder="Choose a date & time" [(ngModel)]="myDatePicker">
