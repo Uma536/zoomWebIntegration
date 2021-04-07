@@ -33,6 +33,7 @@ main {
     width:35%;
     margin: auto; 
     text-align: center;
+    display: none !important;
   }
   .title{
     font-size: 20px;
@@ -43,7 +44,28 @@ main {
   .username{
     height:30px;
   }
+  .join_url{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+  }
 
+  .joinMeeting{
+    // text-align: center;
+    // display:flex;
+    // width:45%;
+    // margin: auto; 
+    display:flex;
+    flex-direction: column;
+    width:35%;
+    height: 52px;
+    margin: auto; 
+    text-align: center;
+  }
+.join-url-button{
+  text-align: center;
+  height: 45px
+}
   /* .example-card {
     max-width: 400px;
   } */

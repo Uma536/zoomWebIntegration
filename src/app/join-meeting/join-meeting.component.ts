@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DOCUMENT } from '@angular/common';
 
@@ -14,7 +14,7 @@ console.log('checkSystemRequirements');
   templateUrl: './join-meeting.component.html',
   styleUrls: ['./join-meeting.component.scss']
 })
-export class JoinMeetingComponent implements OnInit {
+export class JoinMeetingComponent implements OnInit, OnChanges {
   meetingNumber: string;
   userName: string;
   signatureEndpoint = 'http://localhost:4000'
@@ -24,17 +24,20 @@ export class JoinMeetingComponent implements OnInit {
   leaveUrl = 'http://localhost:4200'
   // userName = 'Angular'
   userEmail = ''
-  passWord = ''
+  // passWord = ''
   formGroup: FormGroup;
   joinMeetingForm: FormGroup;
+  @Input() childData: any;
 
   constructor(public httpClient: HttpClient, @Inject(DOCUMENT) document,private formBuilder: FormBuilder) {
 
   }
-
   ngOnInit() {
     this.joinMeetingCreateForm(); 
    }
+   ngOnChanges() {
+     console.log("data in child component", this.childData)
+  }
 
   joinMeetingCreateForm() {
     this.joinMeetingForm = this.formBuilder.group({
@@ -44,7 +47,7 @@ export class JoinMeetingComponent implements OnInit {
       'userName': [null, [Validators.required]]
     });
   }
-  joinMeeting(data: any) {  
+  joinMeeting(data: any) { 
     this.meetingNumber = data.meetingId;
     this.userName = data.userName;
     this.getSignature();
@@ -77,12 +80,13 @@ export class JoinMeetingComponent implements OnInit {
         console.log(success)
 
         ZoomMtg.join({
+          // tslint:disable-next-line:object-literal-shorthand
           signature: signature,
           meetingNumber: this.meetingNumber,
           userName: this.userName,
           apiKey: this.apiKey,
           userEmail: this.userEmail,
-          passWord: this.passWord,
+          // passWord: this.passWord,
           success: (success) => {
             console.log(success)
           },

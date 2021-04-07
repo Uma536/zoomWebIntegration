@@ -14,45 +14,31 @@ export class CreateMeetingComponent implements OnInit {
   createMeetingForm: FormGroup;
   meetingDetails: any;
   isLoad = false;
-  title: any;
-  isEnable = false;
   btnDisabled = true;
-
+  topic: any;
+  dataRes: any;
   url = 'http://localhost:3000/createmeeting';
+  datepicker: any;
   constructor(public httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
   }
   ngOnInit() {
+    
     this.meetingCreateForm();
+
   }
 
   meetingCreateForm() {
     this.createMeetingForm = new FormGroup({
-        email: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
-    title: new FormControl('', Validators.required),
+    email: new FormControl({ value: '', disabled: true }),
+    topic: new FormControl('', Validators.required),
     datepicker: new FormControl('', Validators.required)
     });
-    this.isEnable = true;
   }
-  // meetingCreateForm() {
-  //   // userFirstName: new FormControl(''),
-  //   // tslint:disable-next-line:max-line-length
-  // tslint:disable-next-line:max-line-length
-  //   const emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   this.createMeetingForm = this.formBuilder.group({
-  //     email: [null, [Validators.required, Validators.pattern(emailregex)]],
-  //     title: [null],
-  //     datepicker: [null]
-  //   // datepicker: new FormControl(''),
-  //   });
-  // }
+//   get email() 
+//   { return this.createMeetingForm.get('email')
+// }; 
 
-
-  //  });
-  // tslint:disable-next-line:typedef
   createMeeting(body: any) {
       this.isLoad = true;
       console.log('data', body);
@@ -65,15 +51,18 @@ export class CreateMeetingComponent implements OnInit {
       // tslint:disable-next-line:one-line
       if (data != null){
          this.isLoad = false;
-         console.log(JSON.parse(data));
+         this.dataRes = JSON.parse(data);
+         console.log('details', this.dataRes);
          this._snackBar.open('Meeting Created Successfully', '', {
           duration: 1000,
         });
       }
       this.meetingDetails = JSON.parse(data);
-      console.log(this.meetingDetails.id);
-      this.title = JSON.stringify(this.createMeetingForm.value.title);
-      console.log(this.title);
+      console.log(this.meetingDetails.host_email);
+      this.topic = JSON.stringify(this.createMeetingForm.value.topic);
+      console.log('topic', this.topic);
+      this.datepicker = JSON.stringify(this.createMeetingForm.value.datepicker);
+      console.log('duration', this.datepicker);
       this.btnDisabled = false;
     });
       // this.openDialog();
@@ -86,14 +75,19 @@ export class CreateMeetingComponent implements OnInit {
   //   }
   //   return true;
   // }
-
+  // let newList = Object.assign(ElementList, element)
 
   openDialog(): void {
+    // this.datepicker = this.createMeetingForm.value.datepicker;
+    // let newMeetingDetails = Object.assign(this.meetingDetails, {duration: this.datepicker.toLocaleString()})
+    // console.log("new meetinfg details",newMeetingDetails.meetingDetails);
     const dialogRef = this.dialog.open(DialogboxComponent, {
       width: '650px',
-      data: this.meetingDetails,
+      // data: {
+      //  meetingDetails: this.meetingDetails,
+      // }
       // zoomTitle: this.title
-
+      data: this.meetingDetails,
     });
 
     dialogRef.afterClosed().subscribe(result => {

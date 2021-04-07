@@ -5,17 +5,15 @@
 </div>
     <div class="container">
         <h3 class="heading">Create Meeting</h3>
-        <form [formGroup]="createMeetingForm" class="form" (ngSubmit)="createMeeting(createMeetingForm.value)">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput placeholder="Email"  formControlName="email">
-                 <!-- <mat-error *ngIf="!createMeetingForm.controls['email'].valid && createMeetingForm.controls['email'].touched">
-        Email Id is required
-      </mat-error> -->
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="example-full-width">
+      <form [formGroup]="createMeetingForm" class="form" (ngSubmit)="createMeeting(createMeetingForm.value)">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <!-- <mat-label>Email</mat-label> -->
+            <span>{{this.meetingDetails?.host_email}}</span>
+            <input matInput formControlName="email">
+      </mat-form-field>
+ <mat-form-field appearance="outline" class="example-full-width">
                 <mat-label>Topic</mat-label>
-                <input matInput placeholder="Title" formControlName="title">
+                <input matInput placeholder="Title" formControlName="topic">
               </mat-form-field>
               <mat-form-field appearance="outline" class="example-full-width">
                 <input matInput [ngxMatDatetimePicker]="picker" formControlName="datepicker" placeholder="Choose a date & time" [(ngModel)]="myDatePicker">
@@ -30,9 +28,8 @@
             <button mat-raised-button color="primary" [disabled]="btnDisabled" (click)="openDialog()">ZoomMeeting Details</button>
           </div>
     </div>
-   
-    <!-- </mat-card> -->
     </div>
+    <app-join-meeting [childData]="dataRes"></app-join-meeting>
     
     
     
