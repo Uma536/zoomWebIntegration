@@ -1,0 +1,18 @@
+<main>
+  <h1 class="text-lg title">Zoom WebSDK</h1>
+  <div class="form">
+    <div class="username">
+  <input type="text" name="display_name" [(ngModel)]="userName" placeholder="UserName" class="form-control" required>
+
+</div>
+<div class = "meeting_number">
+<input type="text" name="meeting_number" [(ngModel)]="meetingNumber" placeholder="MeetingNumber" class="form-control" required>
+</div>
+<!-- <button (click)="getSignature()">Join Meeting</button> -->
+<!-- <button routerLink="/createmeeting">Create Meeting</button> -->
+<button mat-raised-button color="primary" (click)="getSignature()">ZoomMeeting Details</button>
+
+
+</div>
+ 
+</main>

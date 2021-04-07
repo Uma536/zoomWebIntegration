@@ -1,0 +1,53 @@
+<!-- <div mat-dialog-content>
+  <p>Zoom Details are:</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button cdkFocusInitial>Ok</button>
+</div> -->
+<mat-dialog-content>  
+    <mat-toolbar color="accent" style="background-color:darkblue;"> 
+        ZoomMeeting Details
+</mat-toolbar>  
+    <br>  
+        <table class="table"> 
+            <tr>  
+                <th> MeetingId: </th>  
+                <td> {{zoomDetails?.id}} </td>  
+            </tr>    
+            <tr>  
+                <th> EmailId: </th>  
+                <td> {{zoomDetails?.host_email}} </td>  
+            </tr>    
+            <tr class=startUrl>   
+                <th> StartUrl: </th>  
+                <td class="meeting-url"> {{zoomDetails?.start_url}} </td>  
+            </tr> 
+              <tr>  
+                <th>Topic: </th>  
+                <td> {{zoomDetails?.title}} </td>  
+            </tr>  
+            <tr>  
+                <th> Duration:</th>  
+                <td> {{zoomDetails?.datepicker}} </td>  
+            </tr>  
+            <tr class=startUrl>  
+                <th>JoinUrl:</th>  
+                <td class="meeting-url"> {{zoomDetails?.join_url}} </td>  
+            </tr>  
+            <tr>  
+                <th>Password:</th>  
+                <td> {{zoomDetails?.password}} </td>  
+            </tr>  
+        </table>  
+        <!-- <span>MeetingId:{{zoomDetails?.id}}</span>
+        <span>EmailId:{{zoomDetails?.host_email}}</span>
+       <span>StartUrl:<p>{{zoomDetails?.start_url}}</p></span>
+      <span>Duration:</span>
+        <span>JoinUrl:<p class="meeting-url">{{zoomDetails?.join_url}}</p></span>
+        <span>Password:{{zoomDetails?.password}}</span> -->
+    </mat-dialog-content>  
+    <mat-dialog-actions align="center">  
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button cdkFocusInitial>Ok</button>    
+    </mat-dialog-actions> 

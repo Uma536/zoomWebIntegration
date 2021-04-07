@@ -1,0 +1,71 @@
+main {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .zoomDetails{
+    display: flex;
+    flex-direction: column;
+  }
+  .form {
+  width: 250px;
+    display: flex;
+    text-align: center;
+  }
+  
+  button {
+    margin-top: 20px;
+    background-color: #2D8CFF;
+    color: #ffffff;
+    text-decoration: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: inline-block;
+    border-radius: 10px;
+  }
+  
+  .form{
+    display:flex;
+    flex-direction: column;
+    width:35%;
+    margin: auto; 
+    text-align: center;
+  }
+  .title{
+    font-size: 20px;
+  }
+  .meeting_number{
+    padding-top: 20px !important;
+  }
+  .username{
+    height:30px;
+  }
+
+  /* .example-card {
+    max-width: 400px;
+  } */
+.maincontainer{
+  height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-element{
+   text-align: center;
+}
+.container {
+    padding: 5px;
+    width:25% !important;
+  }
+  .form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  .heading{
+      padding-top:20px;
+  }
