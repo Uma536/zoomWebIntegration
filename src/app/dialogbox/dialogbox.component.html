@@ -6,7 +6,7 @@
   <button mat-button cdkFocusInitial>Ok</button>
 </div> -->
 <mat-dialog-content>  
-    <mat-toolbar color="accent" style="background-color:darkblue;"> 
+    <mat-toolbar color="accent" color="primary"> 
         ZoomMeeting Details
 </mat-toolbar>  
     <br>  
@@ -23,14 +23,14 @@
                 <th> StartUrl: </th>  
                 <td class="meeting-url"> {{zoomDetails?.start_url}} </td>  
             </tr> 
-              <tr>  
+              <!-- <tr>  
                 <th>Topic: </th>  
                 <td> {{zoomDetails?.title}} </td>  
             </tr>  
             <tr>  
                 <th> Duration:</th>  
                 <td> {{zoomDetails?.datepicker}} </td>  
-            </tr>  
+            </tr>   -->
             <tr class=startUrl>  
                 <th>JoinUrl:</th>  
                 <td class="meeting-url"> {{zoomDetails?.join_url}} </td>  
@@ -40,12 +40,6 @@
                 <td> {{zoomDetails?.password}} </td>  
             </tr>  
         </table>  
-        <!-- <span>MeetingId:{{zoomDetails?.id}}</span>
-        <span>EmailId:{{zoomDetails?.host_email}}</span>
-       <span>StartUrl:<p>{{zoomDetails?.start_url}}</p></span>
-      <span>Duration:</span>
-        <span>JoinUrl:<p class="meeting-url">{{zoomDetails?.join_url}}</p></span>
-        <span>Password:{{zoomDetails?.password}}</span> -->
     </mat-dialog-content>  
     <mat-dialog-actions align="center">  
         <button mat-button (click)="onNoClick()">Cancel</button>
