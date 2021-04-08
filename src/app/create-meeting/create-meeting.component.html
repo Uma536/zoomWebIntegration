@@ -8,7 +8,8 @@
     <form [formGroup]="createMeetingForm" class="form" (ngSubmit)="createMeeting(createMeetingForm.value)">
       <mat-form-field class="example-full-width hideemail" appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput formControlName="email"  placeholder="{{this.meetingDetails?.host_email}}">{{this.meetingDetails?.host_email}}
+        <input matInput formControlName="email"
+          placeholder="{{this.meetingDetails?.host_email}}">{{this.meetingDetails?.host_email}}
       </mat-form-field>
       <mat-form-field appearance="outline" class="example-full-width zoomdetails">
         <mat-label>Topic</mat-label>
@@ -46,17 +47,22 @@
   </div>
 </div>
 <!--demo purpose-->
+<div>
+  <h3 class="heading">Join Meeting</h3>
+</div>
 <div class="joinMeeting">
+
   <div>
     <h3 class="heading">Join Meeting</h3>
-<mat-form-field appearance="outline" class="join_url_field">
-  <mat-label>Join_url</mat-label>
-  <input matInput type="userName">
-  <span>{{this.meetingDetails?.join_url}}</span>
-</mat-form-field>
-</div>
-<div>
-<button class="join-url-button" mat-raised-button color="primary"><a href="{{this.meetingDetails?.join_url}}" target="_blank" class="join_url">Join Meeting</a></button>
+    <mat-form-field appearance="outline" class="join_url_field">
+      <mat-label>Join_url</mat-label>
+      <input matInput type="userName">
+      <span>{{this.meetingDetails?.join_url}}</span>
+    </mat-form-field>
+  </div>
+  <div>
+    <button class="join-url-button" mat-raised-button color="primary"><a href="{{this.meetingDetails?.join_url}}"
+        target="_blank" class="join_url">Join Meeting</a></button>
 
-</div>
-<!-- <app-join-meeting [childData]="dataRes"></app-join-meeting> -->
+  </div>
+  <!-- <app-join-meeting [childData]="dataRes"></app-join-meeting> -->
