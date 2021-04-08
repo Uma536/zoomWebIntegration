@@ -33,7 +33,7 @@ main {
     width:35%;
     margin: auto; 
     text-align: center;
-    display: none !important;
+    // display: none !important;
   }
   .title{
     font-size: 20px;
@@ -64,10 +64,12 @@ main {
   }
   .join_url_field{
    width:300px;
+   word-break: break-all;
   }
 .join-url-button{
   text-align: center;
-  height: 50px;
+  height: 45px;
+  line-height:24px;
   // width: 3%;
 }
   /* .example-card {
@@ -94,6 +96,7 @@ main {
   }
   .heading{
       padding-top:20px;
+      text-align: center;
   }
   .container {
     padding: 5px;
