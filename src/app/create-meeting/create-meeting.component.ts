@@ -20,6 +20,7 @@ export class CreateMeetingComponent implements OnInit {
   url = 'http://localhost:3000/createmeeting';
   datepicker: any;
   newMeetingDetails: any;
+  enddatetime: any;
   constructor(public httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
   }
@@ -31,12 +32,10 @@ export class CreateMeetingComponent implements OnInit {
     this.createMeetingForm = new FormGroup({
     email: new FormControl({ value: '', disabled: true }),
     title: new FormControl('', Validators.required),
-    datepicker: new FormControl('', Validators.required)
+    datepicker: new FormControl('', Validators.required),
+    enddatetimepicker: new FormControl('', Validators.required)
     });
   }
-//   get email()
-//   { return this.createMeetingForm.get('email')
-// };
 
   createMeeting(body: any) {
       this.isLoad = true;
@@ -66,22 +65,14 @@ export class CreateMeetingComponent implements OnInit {
     });
       // this.openDialog();
   }
-
-
-  // isDisabled() {
-  //   if (this.createMeetingForm.dirty || this.isEnable) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
-  // let newList = Object.assign(ElementList, element)
-
   openDialog(): void {
     this.datepicker = this.createMeetingForm.value.datepicker;
     this.topic = this.createMeetingForm.value.title;
-
+    this.enddatetime = this.createMeetingForm.value.enddatetimepicker;
    // tslint:disable-next-line:align
-   this.newMeetingDetails = Object.assign(this.meetingDetails, {duration: this.datepicker.toLocaleString()},{zoomtopic: this.topic});
+   // tslint:disable-next-line:max-line-length
+    this.newMeetingDetails = Object.assign(this.meetingDetails, {duration: this.datepicker.toLocaleString()},
+     {zoomtopic: this.topic}, {endduration: this.enddatetime.toLocaleString()});
     console.log('new meetinfg details', this.newMeetingDetails.meetingDetails);
     const dialogRef = this.dialog.open(DialogboxComponent, {
       width: '650px',
