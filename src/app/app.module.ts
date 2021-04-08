@@ -15,12 +15,14 @@ import {
   NgxMatNativeDateModule,
   NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
     JoinMeetingComponent,
     CreateMeetingComponent,
-    DialogboxComponent
+    DialogboxComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
