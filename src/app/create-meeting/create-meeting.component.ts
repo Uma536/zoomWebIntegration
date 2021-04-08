@@ -19,25 +19,24 @@ export class CreateMeetingComponent implements OnInit {
   dataRes: any;
   url = 'http://localhost:3000/createmeeting';
   datepicker: any;
+  newMeetingDetails: any;
   constructor(public httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private _snackBar: MatSnackBar) {
 
   }
   ngOnInit() {
-    
     this.meetingCreateForm();
-
   }
 
   meetingCreateForm() {
     this.createMeetingForm = new FormGroup({
     email: new FormControl({ value: '', disabled: true }),
-    topic: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.required),
     datepicker: new FormControl('', Validators.required)
     });
   }
-//   get email() 
+//   get email()
 //   { return this.createMeetingForm.get('email')
-// }; 
+// };
 
   createMeeting(body: any) {
       this.isLoad = true;
@@ -59,7 +58,7 @@ export class CreateMeetingComponent implements OnInit {
       }
       this.meetingDetails = JSON.parse(data);
       console.log(this.meetingDetails.host_email);
-      this.topic = JSON.stringify(this.createMeetingForm.value.topic);
+      this.topic = JSON.stringify(this.createMeetingForm.value.title);
       console.log('topic', this.topic);
       this.datepicker = JSON.stringify(this.createMeetingForm.value.datepicker);
       console.log('duration', this.datepicker);
@@ -78,16 +77,18 @@ export class CreateMeetingComponent implements OnInit {
   // let newList = Object.assign(ElementList, element)
 
   openDialog(): void {
-    // this.datepicker = this.createMeetingForm.value.datepicker;
-    // let newMeetingDetails = Object.assign(this.meetingDetails, {duration: this.datepicker.toLocaleString()})
-    // console.log("new meetinfg details",newMeetingDetails.meetingDetails);
+    this.datepicker = this.createMeetingForm.value.datepicker;
+    this.topic = this.createMeetingForm.value.title;
+
+   // tslint:disable-next-line:align
+   this.newMeetingDetails = Object.assign(this.meetingDetails, {duration: this.datepicker.toLocaleString()},{zoomtopic: this.topic});
+    console.log('new meetinfg details', this.newMeetingDetails.meetingDetails);
     const dialogRef = this.dialog.open(DialogboxComponent, {
       width: '650px',
       // data: {
       //  meetingDetails: this.meetingDetails,
       // }
-      // zoomTitle: this.title
-      data: this.meetingDetails,
+      data: this.meetingDetails
     });
 
     dialogRef.afterClosed().subscribe(result => {
