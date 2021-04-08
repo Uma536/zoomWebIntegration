@@ -32,4 +32,15 @@
     </div>
   </div>
 </div>
-<app-join-meeting [childData]="dataRes"></app-join-meeting>
+<!--demo purpose-->
+<div class="joinMeeting">
+  <div>
+<mat-form-field appearance="outline" class="join_url_field">
+  <mat-label>Join_url</mat-label>
+  <input matInput type="userName">
+  <span>{{this.meetingDetails?.join_url}}</span>
+</mat-form-field>
+</div>
+<button class="join-url-button" mat-raised-button color="primary"><a href="{{this.meetingDetails?.join_url}}" target="_blank" class="join_url">Join Meeting</a></button>
+</div>
+<!-- <app-join-meeting [childData]="dataRes"></app-join-meeting> -->
