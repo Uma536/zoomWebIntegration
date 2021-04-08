@@ -6,7 +6,7 @@
   <div class="container">
     <h3 class="heading">Create Meeting</h3>
     <form [formGroup]="createMeetingForm" class="form" (ngSubmit)="createMeeting(createMeetingForm.value)">
-      <mat-form-field class="example-full-width" appearance="outline">
+      <mat-form-field class="example-full-width hideemail" appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email"  placeholder="{{this.meetingDetails?.host_email}}">{{this.meetingDetails?.host_email}}
       </mat-form-field>
