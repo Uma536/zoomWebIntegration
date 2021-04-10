@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DOCUMENT } from '@angular/common';
 
 import { ZoomMtg } from '@zoomus/websdk';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ZoomIntegrationService } from '../services/zoom-integration.service';
 import { environment } from 'src/environments/environment';
 
@@ -45,6 +45,7 @@ export class JoinMeetingComponent implements OnInit, OnChanges {
     this.joinMeetingCreateForm();
     const zoomnewdata = this.zoomapiService.zoomData.getValue();
     console.log('zoomdata get details', zoomnewdata);
+    console.log('zoomdata get id', zoomnewdata.id);
     if (zoomnewdata != null && !!zoomnewdata) {
     this.zoomdetails = JSON.parse(zoomnewdata);
     console.log('zoomnew parsed value', this.zoomdetails);
@@ -58,15 +59,16 @@ export class JoinMeetingComponent implements OnInit, OnChanges {
      console.log('data in child component', this.childData);
   }
 
+
   joinMeetingCreateForm() {
     this.joinMeetingForm = this.formBuilder.group({
-      meetingId: [''],
-      userName: [null],
-      password: ['']
+      meetingNumber: ['', Validators.required],
+      userName:  ['', Validators.required],
+      password: ['', [Validators.required]]
     });
   }
   joinMeeting(data: any) {
-    this.meetingNumber = data.meetingId;
+    this.meetingNumber = data.meetingNumber;
     this.userName = data.userName;
     this.meetingPassWord = data.password;
     this.getSignature();
