@@ -5,17 +5,16 @@
   <form [formGroup]="joinMeetingForm" class="form" (ngSubmit)="joinMeeting(joinMeetingForm.value)">
     <mat-form-field appearance="outline">
       <mat-label>Meeting Id</mat-label>
-      <input matInput formControlName="meetingNumber">
-      <span>{{this.zoomdetails?.id}}</span>
+      <input matInput formControlName="meetingNumber">{{this.zoomdetails?.id}}
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
       <input matInput type="userName" formControlName="userName">
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Paasword</mat-label>
-      <input matInput type="password" formControlName="password">
-      <span>{{this.zoomdetails?.password}}</span>
+    <mat-form-field>
+      <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password">{{this.zoomdetails?.password}}
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <!-- <span>{{this.zoomdetails?.password}}</span> -->
     </mat-form-field>
     <div class="form-element">
       <button mat-raised-button color="primary" type="submit" class="button">Join
@@ -28,6 +27,6 @@
       <input matInput type="userName">
       <span>{{this.zoomdetails?.join_url}}</span>
     </mat-form-field>
-      <button class="join-url-button" mat-raised-button color="primary"><a href="{{this.zoomdetails?.join_url}}"
-       target="_blank" class="join_url">Join Meeting</a></button>
+    <button class="join-url-button" mat-raised-button color="primary"><a href="{{this.zoomdetails?.join_url}}"
+        target="_blank" class="join_url">Join Meeting</a></button>
   </div>

@@ -25,7 +25,7 @@ export class CreateMeetingComponent implements OnInit {
   body: {};
   constructor(public httpClient: HttpClient, private formBuilder: FormBuilder,
               public dialog: MatDialog,
-              private _snackBar: MatSnackBar, private zoomapiService: ZoomIntegrationService) {
+              private snackBar: MatSnackBar, private zoomapiService: ZoomIntegrationService) {
 
   }
   ngOnInit() {
@@ -34,10 +34,10 @@ export class CreateMeetingComponent implements OnInit {
 
   meetingCreateForm() {
     this.createMeetingForm = new FormGroup({
-    email: new FormControl({ value: '', disabled: true }),
-    title: new FormControl('', Validators.required),
-    datepicker: new FormControl('', Validators.required),
-    enddatetimepicker: new FormControl('', Validators.required)
+      email: new FormControl({ value: '', disabled: true }),
+      title: new FormControl('', Validators.required),
+      datepicker: new FormControl('', Validators.required),
+      enddatetimepicker: new FormControl('', Validators.required)
     });
   }
 
@@ -45,10 +45,10 @@ export class CreateMeetingComponent implements OnInit {
     this.zoomapiService.createtingMeetingApi(this.body).subscribe((res) => {
       console.log('api data', res);
       if (res != null) {
-         this.isLoad = false;
-         this.dataRes = JSON.parse(res);
-         console.log('details', this.dataRes);
-         this._snackBar.open('Meeting Created Successfully', '', {
+        this.isLoad = false;
+        this.dataRes = JSON.parse(res);
+        console.log('details', this.dataRes);
+        this.snackBar.open('Meeting Created Successfully', '', {
           duration: 1000,
         });
       }
@@ -65,10 +65,10 @@ export class CreateMeetingComponent implements OnInit {
     this.datepicker = this.createMeetingForm.value.datepicker;
     this.topic = this.createMeetingForm.value.title;
     this.enddatetime = this.createMeetingForm.value.enddatetimepicker;
-   // tslint:disable-next-line:align
-   // tslint:disable-next-line:max-line-length
-    this.newMeetingDetails = Object.assign(this.meetingDetails, {duration: this.datepicker.toLocaleString()},
-     {zoomtopic: this.topic}, {endduration: this.enddatetime.toLocaleString()});
+    // tslint:disable-next-line:align
+    // tslint:disable-next-line:max-line-length
+    this.newMeetingDetails = Object.assign(this.meetingDetails, { duration: this.datepicker.toLocaleString() },
+      { zoomtopic: this.topic }, { endduration: this.enddatetime.toLocaleString() });
     console.log('new meetinfg details', this.newMeetingDetails.meetingDetails);
     const dialogRef = this.dialog.open(DialogboxComponent, {
       width: '650px',

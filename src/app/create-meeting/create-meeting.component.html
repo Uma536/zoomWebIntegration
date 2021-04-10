@@ -15,26 +15,20 @@
         <mat-label>Topic</mat-label>
         <input matInput placeholder="Title" formControlName="title">
       </mat-form-field>
-      <!-- <mat-form-field appearance="outline" class="example-full-width zoomdetails">
-        <mat-label>Date and Time</mat-label>
-        <input matInput [ngxMatDatetimePicker]="picker" formControlName="datepicker" placeholder="Choose a date & time"
-          [(ngModel)]="myDatePicker">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
-      </mat-form-field> -->
       <div class="dateTimePicker">
-      <mat-form-field>
-        <input matInput [ngxMatDatetimePicker]="pickerFrom" placeholder="From date & time" formControlName="datepicker"[(ngModel)]="myDatePickerFrom">
-        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #pickerFrom [enableMeridian]="true"></ngx-mat-datetime-picker>
-    </mat-form-field>
-   <mat-form-field>
-        <input matInput [ngxMatDatetimePicker]="pickerTo" placeholder="To date & time" formControlName="enddatetimepicker" [(ngModel)]="myDatePickerTo"
-          [min]="myDatePickerFrom">
-        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #pickerTo [enableMeridian]="true"></ngx-mat-datetime-picker>
-    </mat-form-field>
-  </div>
+        <mat-form-field>
+          <input matInput [ngxMatDatetimePicker]="pickerFrom" placeholder="From date & time"
+            formControlName="datepicker" [(ngModel)]="myDatePickerFrom">
+          <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerFrom [enableMeridian]="true"></ngx-mat-datetime-picker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [ngxMatDatetimePicker]="pickerTo" placeholder="To date & time"
+            formControlName="enddatetimepicker" [(ngModel)]="myDatePickerTo" [min]="myDatePickerFrom">
+          <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          <ngx-mat-datetime-picker #pickerTo [enableMeridian]="true"></ngx-mat-datetime-picker>
+        </mat-form-field>
+      </div>
       <div class="form-element">
         <button mat-raised-button color="primary" type="submit" class="button"
           [disabled]="!createMeetingForm.valid">Create Meeting</button>
@@ -46,23 +40,3 @@
     </div>
   </div>
 </div>
-<!--demo purpose-->
-<!-- <div>
-  <h3 class="heading">Join Meeting</h3>
-</div> -->
-<!-- <div class="joinMeeting">
-
-  <div>
-    <h3 class="heading">Join Meeting</h3>
-    <mat-form-field appearance="outline" class="join_url_field">
-      <mat-label>Join_url</mat-label>
-      <input matInput type="userName">
-      <span>{{this.meetingDetails?.join_url}}</span>
-    </mat-form-field>
-  </div>
-  <div>
-    <button class="join-url-button" mat-raised-button color="primary"><a href="{{this.meetingDetails?.join_url}}"
-        target="_blank" class="join_url">Join Meeting</a></button>
-
-  </div> -->
-  <!-- <app-join-meeting [childData]="dataRes"></app-join-meeting> -->

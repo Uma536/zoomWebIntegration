@@ -9,7 +9,8 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatIconModule
 } from '@angular/material';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 const MaterialComponents = [
@@ -27,6 +28,7 @@ const MaterialComponents = [
   MatFormFieldModule,
   MatInputModule,
   MatSnackBarModule,
+  MatIconModule,
   MatProgressSpinnerModule,
 ];
 @NgModule({

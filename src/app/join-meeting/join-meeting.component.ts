@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
-console.log('checkSystemRequirements');
+// console.log('checkSystemRequirements');
 // console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
 @Component({
   selector: 'app-join-meeting',
@@ -19,7 +19,7 @@ console.log('checkSystemRequirements');
 export class JoinMeetingComponent implements OnInit, OnChanges {
 
 
-  meetingNumber = 0;
+  meetingNumber: number;
   userName: string;
   signatureEndpoint = 'http://localhost:4000/getSignature';
   apiKey = '9ccJuAHyStWc_21278HiDg';
@@ -27,8 +27,9 @@ export class JoinMeetingComponent implements OnInit, OnChanges {
   role = 1;
   leaveUrl = 'http://localhost:4200';
   userEmail = '';
-  meetingPassWord = '';
+  meetingPassword = '';
   zoomdetails: any;
+  hide = true;
   formGroup: FormGroup;
   joinMeetingForm: FormGroup;
 
@@ -47,30 +48,40 @@ export class JoinMeetingComponent implements OnInit, OnChanges {
     console.log('zoomdata get details', zoomnewdata);
     console.log('zoomdata get id', zoomnewdata.id);
     if (zoomnewdata != null && !!zoomnewdata) {
-    this.zoomdetails = JSON.parse(zoomnewdata);
-    console.log('zoomnew parsed value', this.zoomdetails);
-    console.log('zoomnew id', this.zoomdetails.id);
-
+      this.zoomdetails = JSON.parse(zoomnewdata);
+      console.log('zoomnew parsed value', this.zoomdetails);
+      console.log('zoomnew id', this.zoomdetails.id);
+      if (this.zoomdetails != null) {
+        this.joinMeetingForm.controls.userName.setValue(this.zoomdetails.userName);
+        this.joinMeetingForm.controls.meetingNumber.setValue(this.zoomdetails.id);
+        this.joinMeetingForm.controls.password.setValue(this.zoomdetails.password);
+         }
     }
-   }
-   ngOnChanges() {
+  }
+  ngOnChanges() {
     // this.zoomdetails= this.zoomapiService.zoomData.getValue()
     //  console.log("zoomdata get details",this.zoomdetails)
-     console.log('data in child component', this.childData);
+    console.log('data in child component', this.childData);
   }
 
 
   joinMeetingCreateForm() {
+    console.log('form control', this.joinMeetingForm);
     this.joinMeetingForm = this.formBuilder.group({
       meetingNumber: ['', Validators.required],
-      userName:  ['', Validators.required],
+      userName: ['', Validators.required],
       password: ['', [Validators.required]]
     });
   }
   joinMeeting(data: any) {
     this.meetingNumber = data.meetingNumber;
     this.userName = data.userName;
-    this.meetingPassWord = data.password;
+    this.meetingPassword = data.password;
+    console.log('formcontrol', this.joinMeetingForm.controls.userName.value);
+    console.log('formcontrol meetingnumber', this.joinMeetingForm.controls.meetingNumber.value);
+    console.log('formcontrol password', this.joinMeetingForm.controls.password.value);
+
+
     this.getSignature();
   }
 
@@ -104,8 +115,8 @@ export class JoinMeetingComponent implements OnInit, OnChanges {
           meetingNumber: this.meetingNumber,
           userName: this.userName,
           apiKey: this.apiKey,
-          userEmail: this.userEmail, // Email required for Webinars
-          passWord: this.meetingPassWord,  // password optional; set by Host
+          userEmail: this.userEmail,
+          passWord: this.meetingPassword,
           success: (success) => {
             console.log(success);
           },
