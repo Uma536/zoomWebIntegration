@@ -4,6 +4,8 @@ import { DOCUMENT } from '@angular/common';
 
 import { ZoomMtg } from '@zoomus/websdk';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ZoomIntegrationService } from '../services/zoom-integration.service';
+import { environment } from 'src/environments/environment';
 
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
@@ -15,90 +17,105 @@ console.log('checkSystemRequirements');
   styleUrls: ['./join-meeting.component.scss']
 })
 export class JoinMeetingComponent implements OnInit, OnChanges {
-  meetingNumber: string;
+
+
+  meetingNumber = 0;
   userName: string;
-  signatureEndpoint = 'http://localhost:4000'
-  apiKey = '9ccJuAHyStWc_21278HiDg'
-  // meetingNumber = '89906867556'
-  role = 0
-  leaveUrl = 'http://localhost:4200'
-  // userName = 'Angular'
-  userEmail = ''
-  // passWord = ''
+  signatureEndpoint = 'http://localhost:4000/getSignature';
+  apiKey = '9ccJuAHyStWc_21278HiDg';
+  apiSecret = 'WwW9DC8Cuw9YYmfevblgQ2jWGrAOOoVS2qvA';
+  role = 1;
+  leaveUrl = 'http://localhost:4200';
+  userEmail = '';
+  meetingPassWord = '';
+  zoomdetails: any;
   formGroup: FormGroup;
   joinMeetingForm: FormGroup;
-  @Input() childData: any;
 
-  constructor(public httpClient: HttpClient, @Inject(DOCUMENT) document,private formBuilder: FormBuilder) {
+
+  @Input() childData: any;
+  body: {};
+
+  constructor(public httpClient: HttpClient, @Inject(DOCUMENT) document,
+              private formBuilder: FormBuilder,
+              private zoomapiService: ZoomIntegrationService) {
 
   }
   ngOnInit() {
-    this.joinMeetingCreateForm(); 
+    this.joinMeetingCreateForm();
+    const zoomnewdata = this.zoomapiService.zoomData.getValue();
+    console.log('zoomdata get details', zoomnewdata);
+    if (zoomnewdata != null && !!zoomnewdata) {
+    this.zoomdetails = JSON.parse(zoomnewdata);
+    console.log('zoomnew parsed value', this.zoomdetails);
+    console.log('zoomnew id', this.zoomdetails.id);
+
+    }
    }
    ngOnChanges() {
-     console.log("data in child component", this.childData)
+    // this.zoomdetails= this.zoomapiService.zoomData.getValue()
+    //  console.log("zoomdata get details",this.zoomdetails)
+     console.log('data in child component', this.childData);
   }
 
   joinMeetingCreateForm() {
     this.joinMeetingForm = this.formBuilder.group({
-      // tslint:disable-next-line:object-literal-key-quotes
-      'meetingId': [null, Validators.required],
-      // tslint:disable-next-line:object-literal-key-quotes
-      'userName': [null, [Validators.required]]
+      meetingId: [''],
+      userName: [null],
+      password: ['']
     });
   }
-  joinMeeting(data: any) { 
+  joinMeeting(data: any) {
     this.meetingNumber = data.meetingId;
     this.userName = data.userName;
+    this.meetingPassWord = data.password;
     this.getSignature();
   }
- 
+
   getSignature() {
     this.httpClient.post(this.signatureEndpoint, {
       meetingNumber: this.meetingNumber,
       role: this.role
     }).toPromise().then((data: any) => {
-      if(data.signature) {
-        console.log(data.signature)
-        this.startMeeting(data.signature)
+      if (data.signature) {
+        console.log(data.signature);
+        this.startMeeting(data.signature);
       } else {
-        console.log(data)
+        console.log(data);
       }
     }).catch((error) => {
-      console.log(error)
-    })
+      console.log(error);
+    });
   }
 
   startMeeting(signature) {
 
-    document.getElementById('zmmtg-root').style.display = 'block'
-
+    document.getElementById('zmmtg-root').style.display = 'block';
+    // debugger;
     ZoomMtg.init({
       leaveUrl: this.leaveUrl,
       isSupportAV: true,
       success: (success) => {
-        console.log(success)
-
+        console.log(success);
         ZoomMtg.join({
-          // tslint:disable-next-line:object-literal-shorthand
-          signature: signature,
+          signature,
           meetingNumber: this.meetingNumber,
           userName: this.userName,
           apiKey: this.apiKey,
-          userEmail: this.userEmail,
-          // passWord: this.passWord,
+          userEmail: this.userEmail, // Email required for Webinars
+          passWord: this.meetingPassWord,  // password optional; set by Host
           success: (success) => {
-            console.log(success)
+            console.log(success);
           },
           error: (error) => {
-            console.log(error)
+            console.log(error);
           }
-        })
+        });
 
       },
       error: (error) => {
-        console.log(error)
+        console.log(error);
       }
-    })
+    });
   }
 }

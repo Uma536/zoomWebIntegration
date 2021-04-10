@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogboxComponent } from '../dialogbox/dialogbox.component';
 import { MatSnackBar } from '@angular/material';
+import { ZoomIntegrationService } from '../services/zoom-integration.service';
 
 @Component({
   selector: 'app-create-meeting',
@@ -21,7 +22,10 @@ export class CreateMeetingComponent implements OnInit {
   datepicker: any;
   newMeetingDetails: any;
   enddatetime: any;
-  constructor(public httpClient: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private _snackBar: MatSnackBar) {
+  body: {};
+  constructor(public httpClient: HttpClient, private formBuilder: FormBuilder,
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar, private zoomapiService: ZoomIntegrationService) {
 
   }
   ngOnInit() {
@@ -37,25 +41,18 @@ export class CreateMeetingComponent implements OnInit {
     });
   }
 
-  createMeeting(body: any) {
-      this.isLoad = true;
-      console.log('data', body);
-    // let type: string = "application/x-www-form-urlencoded; charset=UTF-8";
-      const options = {responseType: 'text' as 'json'};
-      const bodyString = JSON.parse(JSON.stringify(body || null ));
-    // tslint:disable-next-line:max-line-length
-    // const headers = { Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IjljY0p1QUh5U3RXY18yMTI3OEhpRGciLCJleHAiOjE2MTcyNzc5NjgsImlhdCI6MTYxNzI3MjU2OX0.DO6Zskh-_WWF3WvefmjdcrMVDIDKk-QJUyJi-tdW9f4', responseType: 'text'};
-      this.httpClient.post('http://localhost:3000/createmeeting', bodyString, options).subscribe((data: any) => {
-      // tslint:disable-next-line:one-line
-      if (data != null){
+  createMeeting() {
+    this.zoomapiService.createtingMeetingApi(this.body).subscribe((res) => {
+      console.log('api data', res);
+      if (res != null) {
          this.isLoad = false;
-         this.dataRes = JSON.parse(data);
+         this.dataRes = JSON.parse(res);
          console.log('details', this.dataRes);
          this._snackBar.open('Meeting Created Successfully', '', {
           duration: 1000,
         });
       }
-      this.meetingDetails = JSON.parse(data);
+      this.meetingDetails = JSON.parse(res);
       console.log(this.meetingDetails.host_email);
       this.topic = JSON.stringify(this.createMeetingForm.value.title);
       console.log('topic', this.topic);
@@ -63,7 +60,6 @@ export class CreateMeetingComponent implements OnInit {
       console.log('duration', this.datepicker);
       this.btnDisabled = false;
     });
-      // this.openDialog();
   }
   openDialog(): void {
     this.datepicker = this.createMeetingForm.value.datepicker;

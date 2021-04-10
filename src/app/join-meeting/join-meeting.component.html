@@ -5,15 +5,27 @@
   <form [formGroup]="joinMeetingForm" class="form" (ngSubmit)="joinMeeting(joinMeetingForm.value)">
     <mat-form-field appearance="outline">
       <mat-label>Meeting Id</mat-label>
-      <input matInput type="number" formControlName="meetingId">
+      <input matInput formControlName="meetingId">{{this.zoomdetails.id}}
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
       <input matInput type="userName" formControlName="userName">
     </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Paasword</mat-label>
+      <input matInput type="password" formControlName="password">{{this.zoomdetails.password}}
+    </mat-form-field>
     <div class="form-element">
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!joinMeetingForm.valid">Join
+      <button mat-raised-button color="primary" type="submit" class="button">Join
         Meeting</button>
     </div>
   </form>
-</div>
+  <div class="joinMeeting">
+    <mat-form-field appearance="outline" class="join_url_field">
+      <mat-label>Join_url</mat-label>
+      <input matInput type="userName">
+      <span>{{this.zoomdetails?.join_url}}</span>
+    </mat-form-field>
+      <button class="join-url-button" mat-raised-button color="primary"><a href="{{this.zoomdetails?.join_url}}"
+       target="_blank" class="join_url">Join Meeting</a></button>
+  </div>
