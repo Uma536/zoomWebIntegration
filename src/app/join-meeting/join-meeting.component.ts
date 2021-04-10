@@ -9,8 +9,6 @@ import { environment } from 'src/environments/environment';
 
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
-// console.log('checkSystemRequirements');
-// console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
 @Component({
   selector: 'app-join-meeting',
   templateUrl: './join-meeting.component.html',
@@ -46,42 +44,34 @@ export class JoinMeetingComponent implements OnInit, OnChanges {
     this.joinMeetingCreateForm();
     const zoomnewdata = this.zoomapiService.zoomData.getValue();
     console.log('zoomdata get details', zoomnewdata);
-    console.log('zoomdata get id', zoomnewdata.id);
     if (zoomnewdata != null && !!zoomnewdata) {
       this.zoomdetails = JSON.parse(zoomnewdata);
       console.log('zoomnew parsed value', this.zoomdetails);
-      console.log('zoomnew id', this.zoomdetails.id);
-      if (this.zoomdetails != null) {
+      if (this.zoomdetails) {
         this.joinMeetingForm.controls.userName.setValue(this.zoomdetails.userName);
         this.joinMeetingForm.controls.meetingNumber.setValue(this.zoomdetails.id);
         this.joinMeetingForm.controls.password.setValue(this.zoomdetails.password);
-         }
+      }
     }
   }
   ngOnChanges() {
-    // this.zoomdetails= this.zoomapiService.zoomData.getValue()
-    //  console.log("zoomdata get details",this.zoomdetails)
     console.log('data in child component', this.childData);
   }
-
-
   joinMeetingCreateForm() {
-    console.log('form control', this.joinMeetingForm);
-    this.joinMeetingForm = this.formBuilder.group({
-      meetingNumber: ['', Validators.required],
-      userName: ['', Validators.required],
-      password: ['', [Validators.required]]
+    this.joinMeetingForm = new FormGroup({
+      meetingNumber: new FormControl(''),
+      userName: new FormControl('', Validators.required),
+      password: new FormControl('')
     });
   }
+
   joinMeeting(data: any) {
     this.meetingNumber = data.meetingNumber;
     this.userName = data.userName;
     this.meetingPassword = data.password;
-    console.log('formcontrol', this.joinMeetingForm.controls.userName.value);
-    console.log('formcontrol meetingnumber', this.joinMeetingForm.controls.meetingNumber.value);
-    console.log('formcontrol password', this.joinMeetingForm.controls.password.value);
-
-
+    // console.log('formcontrol', this.joinMeetingForm.controls.userName.value);
+    // console.log('formcontrol meetingnumber', this.joinMeetingForm.controls.meetingNumber.value);
+    // console.log('formcontrol password', this.joinMeetingForm.controls.password.value);
     this.getSignature();
   }
 
