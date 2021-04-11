@@ -1,8 +1,5 @@
 <div class="maincontainer">
   <!-- <mat-card class="example-card"> -->
-  <div *ngIf="isLoad">
-    <mat-spinner class="spinner" color="primary"></mat-spinner>
-  </div>
   <div class="container">
     <h3 class="heading">Create Meeting</h3>
     <form [formGroup]="createMeetingForm" class="form" (ngSubmit)="createMeeting(createMeetingForm.value)">
@@ -33,6 +30,10 @@
         <button mat-raised-button color="primary" type="submit" class="button"
           [disabled]="!createMeetingForm.valid">Create Meeting</button>
       </div>
+
+<div *ngIf="isLoad">
+  <mat-spinner class="spinner" color="primary"></mat-spinner>
+</div>
     </form>
     <div class="meeting-Details">
       <button mat-raised-button color="primary" [disabled]="btnDisabled" (click)="openDialog()">ZoomMeeting

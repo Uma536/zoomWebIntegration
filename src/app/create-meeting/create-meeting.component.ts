@@ -24,14 +24,13 @@ export class CreateMeetingComponent implements OnInit {
   enddatetime: any;
   body: {};
   constructor(public httpClient: HttpClient, private formBuilder: FormBuilder,
-              public dialog: MatDialog,
-              private snackBar: MatSnackBar, private zoomapiService: ZoomIntegrationService) {
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar, private zoomapiService: ZoomIntegrationService) {
 
   }
   ngOnInit() {
     this.meetingCreateForm();
   }
-
   meetingCreateForm() {
     this.createMeetingForm = new FormGroup({
       email: new FormControl({ value: '', disabled: true }),
@@ -40,14 +39,14 @@ export class CreateMeetingComponent implements OnInit {
       enddatetimepicker: new FormControl('', Validators.required)
     });
   }
-
   createMeeting() {
+    this.isLoad = true;
     this.zoomapiService.createtingMeetingApi(this.body).subscribe((res) => {
       console.log('api data', res);
       if (res != null) {
-        this.isLoad = false;
         this.dataRes = JSON.parse(res);
         console.log('details', this.dataRes);
+        this.isLoad = false;
         this.snackBar.open('Meeting Created Successfully', '', {
           duration: 1000,
         });
